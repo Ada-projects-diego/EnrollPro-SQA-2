@@ -21,12 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StudentEnrolmentNew\EnrolPro.csproj" />
-  </ItemGroup>
-
-  <!--<ItemGroup>
     <ProjectReference Include="..\EnrolPro\EnrolPro.csproj" />
-  </ItemGroup>-->
+  </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
