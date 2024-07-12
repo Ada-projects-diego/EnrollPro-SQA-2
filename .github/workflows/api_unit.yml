@@ -1,0 +1,41 @@
+name: API unit Tests
+
+on:
+  push
+  
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore API/StudentEnrolmentNew/StudentEnrolmentNew.sln
+    
+    - name: Build
+      run: dotnet build API/StudentEnrolmentNew/StudentEnrolmentNew.sln --configuration Release --no-restore
+    
+    - name: Test
+      run: |
+        dotnet test API/EnrolPro.Tests/EnrolPro.Tests.csproj --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura --results-directory /home/runner/work/AutoBuggie/AutoBuggie/API/EnrolPro.Tests/TestResults
+
+    - name: Find Coverage XML
+      id: find_coverage
+      run: |
+        echo "::set-output name=coverage_file::$(find /home/runner/work/AutoBuggie/AutoBuggie/API/EnrolPro.Tests -name 'coverage.cobertura.xml' -print -quit)"
+
+    - name: Generate Coverage Report
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator -reports:${{ steps.find_coverage.outputs.coverage_file }} -targetdir:coveragereport -reporttypes:Html
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Coverage Report
+        path: coveragereport
