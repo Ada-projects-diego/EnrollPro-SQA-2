@@ -40,5 +40,4 @@
   dotnet run
   ```
 - This command will start the API server, typically listening on `http://localhost:5000` or `https://localhost:5001`. You can access your API endpoints via these URLs using a browser or tools like Postman.
-
-- .NET Core apps automatically watch for file changes in the development environment. If you edit your source files, the app will be recompiled and restarted automatically.
+- To check the list of endpoints you can run the API and head over to `http://localhost:5000/swagger` or `https://localhost:5001/swagger`

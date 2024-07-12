@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
       "version": "1.0.0",
-      "title": "Student Enrolment API",
-      "description": "API Documentation for the Student Enrolment Service"
+      "title": "EnrolPro API",
+      "description": "API Documentation for the EnrolPro API"
     },
     "host": "localhost:5000",
     "basePath": "/",

@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentEnrolmentNew.src.Data;
+using Microsoft.OpenApi.Models;
+using System.Text.Json;
 
 namespace StudentEnrolmentWeb
 {
@@ -34,6 +36,26 @@ namespace StudentEnrolmentWeb
                                .AllowAnyMethod();
                     });
             });
+
+            // Add Swagger services
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EnrolPro API", Version = "v1" });
+
+                // Use your custom swagger.json file
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Docs", "swagger.json");
+                if (File.Exists(filePath))
+                {
+                    var jsonString = File.ReadAllText(filePath);
+                    var jsonDocument = JsonDocument.Parse(jsonString);
+                    var root = jsonDocument.RootElement;
+
+                    if (root.TryGetProperty("info", out var infoElement))
+                    {
+                        c.SwaggerDoc("v1", infoElement.Deserialize<OpenApiInfo>());
+                    }
+                }
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, StudentEnrolmentContext context)
@@ -49,6 +71,13 @@ namespace StudentEnrolmentWeb
             app.UseCors("MyPolicy");
 
             app.UseAuthorization();
+
+            // Add Swagger middleware
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EnrolPro API");
+            });
 
             app.UseEndpoints(endpoints =>
             {
