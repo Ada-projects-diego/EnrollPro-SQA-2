@@ -2,7 +2,7 @@ name: API unit Tests
 
 on:
   push
-  
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -16,10 +16,10 @@ jobs:
         dotnet-version: '8.0.x'
     
     - name: Restore dependencies
-      run: dotnet restore API/StudentEnrolmentNew/StudentEnrolmentNew.sln
+      run: dotnet restore API/EnrolPro/EnrolPro.sln
     
     - name: Build
-      run: dotnet build API/StudentEnrolmentNew/StudentEnrolmentNew.sln --configuration Release --no-restore
+      run: dotnet build API/EnrolPro/EnrolPro.sln --configuration Release --no-restore
     
     - name: Test
       run: |
