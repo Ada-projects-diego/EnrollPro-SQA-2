@@ -1,0 +1,382 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "EnrolPro API",
+      "description": "API Documentation for the EnrolPro API"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "paths": {
+      "/health": {
+        "get": {
+          "summary": "Health Check",
+          "description": "Returns the status of the service",
+          "responses": {
+            "200": {
+              "description": "Service is up and running"
+            }
+          }
+        }
+      },
+      "/api/Courses": {
+        "get": {
+          "summary": "Get all courses",
+          "description": "Returns a list of all courses",
+          "responses": {
+            "200": {
+              "description": "List of courses"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new course",
+          "description": "Creates a new course",
+          "parameters": [
+            {
+              "name": "course",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Course"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Course created"
+            }
+          }
+        }
+      },
+      "/api/Courses/{id}": {
+        "get": {
+          "summary": "Get course by ID",
+          "description": "Returns a course by its ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Course found"
+            },
+            "404": {
+              "description": "Course not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a course",
+          "description": "Updates an existing course",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "course",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Course"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Course updated"
+            },
+            "400": {
+              "description": "Invalid ID supplied"
+            },
+            "404": {
+              "description": "Course not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a course",
+          "description": "Deletes a course by its ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Course deleted"
+            },
+            "404": {
+              "description": "Course not found"
+            }
+          }
+        }
+      },
+      "/api/Students": {
+        "get": {
+          "summary": "Get all students",
+          "description": "Returns a list of all students",
+          "responses": {
+            "200": {
+              "description": "List of students"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new student",
+          "description": "Creates a new student",
+          "parameters": [
+            {
+              "name": "student",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Student"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Student created"
+            }
+          }
+        }
+      },
+      "/api/Students/{id}": {
+        "get": {
+          "summary": "Get student by ID",
+          "description": "Returns a student by its ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Student found"
+            },
+            "404": {
+              "description": "Student not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a student",
+          "description": "Updates an existing student",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "student",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Student"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Student updated"
+            },
+            "400": {
+              "description": "Invalid ID supplied"
+            },
+            "404": {
+              "description": "Student not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a student",
+          "description": "Deletes a student by its ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Student deleted"
+            },
+            "404": {
+              "description": "Student not found"
+            }
+          }
+        }
+      },
+      "/api/Subjects": {
+        "get": {
+          "summary": "Get all subjects",
+          "description": "Returns a list of all subjects",
+          "responses": {
+            "200": {
+              "description": "List of subjects"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new subject",
+          "description": "Creates a new subject",
+          "parameters": [
+            {
+              "name": "subject",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Subject"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Subject created"
+            }
+          }
+        }
+      },
+      "/api/Subjects/{id}": {
+        "get": {
+          "summary": "Get subject by ID",
+          "description": "Returns a subject by its ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Subject found"
+            },
+            "404": {
+              "description": "Subject not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a subject",
+          "description": "Updates an existing subject",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "subject",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Subject"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Subject updated"
+            },
+            "400": {
+              "description": "Invalid ID supplied"
+            },
+            "404": {
+              "description": "Subject not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a subject",
+          "description": "Deletes a subject by its ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Subject deleted"
+            },
+            "404": {
+              "description": "Subject not found"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Course": {
+        "type": "object",
+        "properties": {
+          "CourseId": {
+            "type": "integer"
+          },
+          "CourseName": {
+            "type": "string"
+          },
+          "Credits": {
+            "type": "integer"
+          }
+        }
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "StudentId": {
+            "type": "integer"
+          },
+          "FirstName": {
+            "type": "string"
+          },
+          "LastName": {
+            "type": "string"
+          },
+          "DateOfBirth": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "Subject": {
+        "type": "object",
+        "properties": {
+          "SubjectId": {
+            "type": "integer"
+          },
+          "SubjectName": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  

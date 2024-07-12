@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnrolPro", "EnrolPro.csproj", "{35C7F7C5-B337-4EB3-BF10-42B4568D39EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnrolPro.Tests", "..\EnrolPro.Tests\EnrolPro.Tests.csproj", "{C1DD93CA-553B-4309-BFE9-79C1F29B6CCF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{35C7F7C5-B337-4EB3-BF10-42B4568D39EA} = {35C7F7C5-B337-4EB3-BF10-42B4568D39EA}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35C7F7C5-B337-4EB3-BF10-42B4568D39EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35C7F7C5-B337-4EB3-BF10-42B4568D39EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35C7F7C5-B337-4EB3-BF10-42B4568D39EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35C7F7C5-B337-4EB3-BF10-42B4568D39EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1DD93CA-553B-4309-BFE9-79C1F29B6CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1DD93CA-553B-4309-BFE9-79C1F29B6CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1DD93CA-553B-4309-BFE9-79C1F29B6CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1DD93CA-553B-4309-BFE9-79C1F29B6CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1281FEA8-C9A3-4BB4-85D3-341D12D9AAE6}
+	EndGlobalSection
+EndGlobal
