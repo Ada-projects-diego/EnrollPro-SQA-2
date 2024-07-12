@@ -1,0 +1,48 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+        <button type="button" class="close" 
+        data-dismiss="modal" aria-label="Close"
+        (click)="closeClick()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-sub  [sub]="sub" (subjectAdded)="closeClick()" *ngIf="ActivateAddEditSubComp"></app-add-sub>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <table class="table" id="subject-table">
+        <thead>
+          <tr>
+            <th scope="col">Subject Id</th>
+            <th scope="col">Subject name</th>
+            <th scope="col">Subject description</th>
+            <th scope="col">  <button type="button" class="btn btn-primary float-right m-2" 
+              data-toggle="modal" data-target="#exampleModal"
+              (click)="addClick()"
+              data-backdrop="static" data-keyboard="false">
+                Add Subject
+              </button></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dataItem of subjectList">
+                <td>{{dataItem.subjectId}}</td>
+                <td>{{dataItem.subjectName}}</td>
+                <td>{{dataItem.subjectDescription}}</td>
+                <td>
+                  <button id="delete-subject" type="button" class="btn btn-danger mr-1" (click)="deleteClick(dataItem)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+</div>
+

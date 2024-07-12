@@ -1,0 +1,53 @@
+name: UI Regression Tests
+
+on:
+  push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x' 
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20' 
+
+    - name: Install dependencies for API
+      run: |
+        cd API/EnrolPro
+        dotnet restore
+
+    - name: Build and start API
+      run: |
+        cd API/EnrolPro
+        dotnet build
+        dotnet run & 
+
+    - name: Install dependencies for front-end
+      run: |
+        cd FrontEnd
+        npm install
+
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
+    - name: Build and start front-end
+      run: |
+        cd FrontEnd
+        ng serve --host 0.0.0.0 --disable-host-check & 
+
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@latest
+
+    - name: Run tests
+      run: |
+        cd EnrolProRegression
+        dotnet test
