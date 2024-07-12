@@ -1,4 +1,4 @@
-name: API unit Tests
+name: API Unit Tests
 
 on:
   push
@@ -23,19 +23,21 @@ jobs:
     
     - name: Test
       run: |
-        dotnet test API/EnrolPro.Tests/EnrolPro.Tests.csproj --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura --results-directory /home/runner/work/AutoBuggie/AutoBuggie/API/EnrolPro.Tests/TestResults
+        dotnet test API/EnrolPro.Tests/EnrolPro.Tests.csproj --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
 
     - name: Find Coverage XML
       id: find_coverage
       run: |
-        echo "::set-output name=coverage_file::$(find /home/runner/work/AutoBuggie/AutoBuggie/API/EnrolPro.Tests -name 'coverage.cobertura.xml' -print -quit)"
+        echo "coverage_file=$(find ${{ github.workspace }} -name 'coverage.cobertura.xml' -print -quit)" >> $GITHUB_OUTPUT
 
     - name: Generate Coverage Report
       run: |
         dotnet tool install -g dotnet-reportgenerator-globaltool
-        reportgenerator -reports:${{ steps.find_coverage.outputs.coverage_file }} -targetdir:coveragereport -reporttypes:Html
+        echo "Coverage file: ${{ steps.find_coverage.outputs.coverage_file }}"
+        ls -l ${{ steps.find_coverage.outputs.coverage_file }} || echo "File not found"
+        reportgenerator -reports:"${{ steps.find_coverage.outputs.coverage_file }}" -targetdir:coveragereport -reporttypes:Html
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: Coverage Report
         path: coveragereport
