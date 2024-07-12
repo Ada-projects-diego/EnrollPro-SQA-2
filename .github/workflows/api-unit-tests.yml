@@ -1,0 +1,43 @@
+name: API Unit Tests
+
+on:
+  push
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore API/EnrolPro/EnrolPro.sln
+    
+    - name: Build
+      run: dotnet build API/EnrolPro/EnrolPro.sln --configuration Release --no-restore
+    
+    - name: Test
+      run: |
+        dotnet test API/EnrolPro.Tests/EnrolPro.Tests.csproj --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+
+    - name: Find Coverage XML
+      id: find_coverage
+      run: |
+        echo "coverage_file=$(find ${{ github.workspace }} -name 'coverage.cobertura.xml' -print -quit)" >> $GITHUB_OUTPUT
+
+    - name: Generate Coverage Report
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        echo "Coverage file: ${{ steps.find_coverage.outputs.coverage_file }}"
+        ls -l ${{ steps.find_coverage.outputs.coverage_file }} || echo "File not found"
+        reportgenerator -reports:"${{ steps.find_coverage.outputs.coverage_file }}" -targetdir:coveragereport -reporttypes:Html
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Coverage Report
+        path: coveragereport
