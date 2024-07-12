@@ -1,11 +1,8 @@
 name: UI Regression Tests
 
 on:
-  push:
-    branches:
-      - main
-      - develop
-
+  push
+  
 jobs:
   test:
     runs-on: ubuntu-latest
