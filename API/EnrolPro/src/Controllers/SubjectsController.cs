@@ -89,7 +89,7 @@ namespace StudentEnrolmentNew.src.Controllers
             {
                 // Log the exception details
                 // You might want to add proper logging here
-                return StatusCode(500, "An error occurred while saving the subject. Please try again.");
+                return StatusCode(500, "An error occurred while saving the subject. Please try again." + ex);
             }
 
             return CreatedAtAction("GetSubject", new { id = subject.SubjectId }, subject);
