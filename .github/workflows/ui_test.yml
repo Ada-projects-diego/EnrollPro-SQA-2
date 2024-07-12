@@ -2,7 +2,7 @@ name: UI Regression Tests
 
 on:
   push
-  
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -49,5 +49,5 @@ jobs:
 
     - name: Run tests
       run: |
-        cd StudentEnrolmentRegression
+        cd EnrolProRegression
         dotnet test
