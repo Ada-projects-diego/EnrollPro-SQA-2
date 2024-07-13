@@ -7,7 +7,7 @@ EnrollPro is a comprehensive student management system designed for educational 
 
 1. Students: Each student has a unique ID, first name, and last name.
 2. Courses: Each course has a unique ID, name, and description.
-3. Subjects: Each subject has a unique ID, name, and description.
+3. Subjects: Each subject has a unique ID, name, description, and a connection with a course.
 
 Relationships:
 - Students can be enrolled in multiple courses (many-to-many relationship).
