@@ -20,7 +20,7 @@ Frontend:
 * View lists of students, courses, and subjects
 * Add new students, courses, and subjects via modal interfaces
 * Delete existing students, courses, and subjects
-* Associate subjects to courses
+* Enrolling subjects to courses
 * Navigate between different sections (Home, Students, Courses, Subjects)
 * Responsive design for various screen sizes using Bootstrap
 
@@ -112,13 +112,15 @@ A lightweight Kanban board was implemented using [Todoist](https://todoist.com/h
 | Lighthouse | Web page quality analysis | [Lighthouse Docs](https://developers.google.com/web/tools/lighthouse) |
 
 ### Continuous Integration
-- GitHub Actions for CI pipelines
-
+GitHub Actions for CI pipelines
+![GH actions proof](./docs/assets/GHactions.png)
 ### Database
 - SQL Server for data persistence in the backend
 
 ### API Documentation
-- Swagger UI for API documentation and testing in the "Docs" folder of the API solution. 
+Swagger UI for API documentation and testing in the "Docs" folder of the API solution. 
+![swagger proof](./docs/assets/swagger.png)
+
 
 ## Instructions
 First, clone the repository. You can use `git clone <repo url>`. To find other ways to clone the repository, such as directly opening it on GitHub Desktop, click on the green "Code" button at the top right of the repository page on GitHub.
@@ -241,6 +243,10 @@ Here’s how tests are conducted throughout the development lifecycle:
 #### Test coverage report
 I have configured my unit tests pipeline to automatically generate a coverage document, and to be uploaded to the artifacts section after each run. This allows developers to check if they have covered all aspects of the code and to quickly identify if they have forgotten to test their new features/code. 
 
+***Note**: If you want to view the latest code coverage report, please run the API test pipeline and download the artifact.*
+
+*The current picture shows a lower coverage due to not testing the "health" endpoint. The most important controllers have 70%+ coverage*
+
 ![artifacts shown on GitHub UI](docs/assets/artifacts_coverage.png)
 ![coverage report 1](docs/assets/coverage_report.png)
 ![coveraege report 2](docs/assets/coverage_report_2.png)
@@ -249,12 +255,24 @@ I have configured my unit tests pipeline to automatically generate a coverage do
 
 ### Architecture Best Practice: MVC
 
-In my application, I have implemented the Model-View-Controller (MVC) architectural pattern, which is a well-established best practice for structuring web applications. The MVC pattern separates the application into three interconnected components:
+I have implemented the Model-View-Controller (MVC) architectural pattern, which is a well-established best practice for structuring web applications. The MVC pattern separates the application into three interconnected components:
 
 - **Model**: Represents the data and the business logic.
 - **View**: Represents the user interface.
 - **Controller**: Handles the user input and interacts with the model and the view.
 
+Note: All models are visible on the swagger document
+> **Note**
+> This is a simple note in your README.
+
+> **Warning**
+> This is a warning message for your users.
+
+> [!NOTE]
+> This is a note using GitHub's built-in admonition syntax.
+
+> [!WARNING]
+> This is a warning using GitHub's built-in admonition syntax.
 #### Implementation
 
 **Controller Example:**
@@ -566,5 +584,3 @@ It's incredible how powerful and precise these tools have become. I always thoug
 ### Closing thoughts on Google Lighthouse
 
 Overall, the application performed well in terms of accessibility and best practices. The performance issues were expected given the technology stack, and many can be addressed in a production environment. While I did look for areas to optimise even when running locally, I found that most performance problems didn't have a significant impact in this setting and were better suited for deployment environments, as mentioned in previous sections.
-
-Moving forward, I plan to integrate Google Lighthouse CI into more productionized environments, such as QA, where I can better test the application's architecture and performance, given that the application currently only runs locally. This will help ensure that the time spent on fixing performance issues is used efficiently and in contexts where it has the most impact.
