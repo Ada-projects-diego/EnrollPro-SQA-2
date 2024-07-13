@@ -245,6 +245,7 @@ I have configured my unit tests pipeline to automatically generate a coverage do
 
 > [!NOTE]
 > If you want to view the latest code coverage report, please run the API test pipeline and download the artifact.
+
 > [!WARNING]
 > The current picture shows a lower coverage due to not testing the "health" endpoint. The most important controllers have 70%+ coverage
 
