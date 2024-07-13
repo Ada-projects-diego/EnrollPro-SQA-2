@@ -20,8 +20,9 @@ Frontend:
 * View lists of students, courses, and subjects
 * Add new students, courses, and subjects via modal interfaces
 * Delete existing students, courses, and subjects
+* Associate subjects to courses
 * Navigate between different sections (Home, Students, Courses, Subjects)
-* Responsive design for various screen sizes
+* Responsive design for various screen sizes using Bootstrap
 
 Backend (assumed based on frontend functionality):
 * Student Management: Create, read, update, and delete (CRUD) student records
