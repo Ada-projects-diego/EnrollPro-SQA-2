@@ -243,9 +243,10 @@ Here’s how tests are conducted throughout the development lifecycle:
 #### Test coverage report
 I have configured my unit tests pipeline to automatically generate a coverage document, and to be uploaded to the artifacts section after each run. This allows developers to check if they have covered all aspects of the code and to quickly identify if they have forgotten to test their new features/code. 
 
-***Note**: If you want to view the latest code coverage report, please run the API test pipeline and download the artifact.*
-
-*The current picture shows a lower coverage due to not testing the "health" endpoint. The most important controllers have 70%+ coverage*
+> [!NOTE]
+> If you want to view the latest code coverage report, please run the API test pipeline and download the artifact.
+> [!WARNING]
+> The current picture shows a lower coverage due to not testing the "health" endpoint. The most important controllers have 70%+ coverage
 
 ![artifacts shown on GitHub UI](docs/assets/artifacts_coverage.png)
 ![coverage report 1](docs/assets/coverage_report.png)
@@ -261,18 +262,10 @@ I have implemented the Model-View-Controller (MVC) architectural pattern, which 
 - **View**: Represents the user interface.
 - **Controller**: Handles the user input and interacts with the model and the view.
 
-Note: All models are visible on the swagger document
-> **Note**
-> This is a simple note in your README.
-
-> **Warning**
-> This is a warning message for your users.
-
 > [!NOTE]
-> This is a note using GitHub's built-in admonition syntax.
+> Head over to the swagger document to see all available models
+![models schemas diagram](./docs/assets/schemas.png)
 
-> [!WARNING]
-> This is a warning using GitHub's built-in admonition syntax.
 #### Implementation
 
 **Controller Example:**
@@ -315,7 +308,6 @@ public class Courses
     }
 }
 ```
-
 
 **View**: Since this is an API, the view layer is not explicitly implemented as in traditional MVC applications. The client (my angular front-end) acts as the view layer, consuming the API endpoints.
 
@@ -374,6 +366,9 @@ mockContext.Setup(c => c.Course.FindAsync(It.IsAny<int>())).ReturnsAsync(new Cou
 
 Using clear and consistent naming conventions is crucial for maintaining readable and understandable code. For instance, my class names are in PascalCase (`Courses`, `Students`), and method names are also in PascalCase (`GetCourses`, `PostCourse`). This consistency helps in quickly understanding the purpose and functionality of different components in the codebase.
 
+> [!NOTE]
+> Using capital letters for models is a standard in C# .NET
+
 **Example:**
 ```csharp
 public async Task<ActionResult<Courses>> GetCourse(int id)
@@ -410,6 +405,9 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 Implementing robust error handling ensures that the application can gracefully handle exceptions and provide meaningful error messages to the client. For instance, checking for `null` values and returning appropriate HTTP status codes helps in maintaining a predictable API behaviour.
 
+> [!NOTE]
+> In .NET, it is a good practice for controllers to ONLY do these types of checks. The logic should be done in "handler" classes. However, given the nature of my application (consulting a database), I decided not to use this practice to not sacrifice on readability (i.e a new user having to check one more file to understand my app)
+
 **Example:**
 ```csharp
 public async Task<IActionResult> PutCourse(int id, Courses course)
@@ -443,7 +441,7 @@ public async Task<IActionResult> PutCourse(int id, Courses course)
 
 ## CI Pipeline
 
-EnrollPro has two GitHub Actions pipelines to automate testing and ensure the quality of both the frontend and backend components. These pipelines are integral to our continuous integration process, as outlined in the testing sections earlier.
+EnrollPro has two GitHub Actions pipelines to automate testing and ensure the quality of both the frontend and backend components. These pipelines are integral to the continuous integration process, as outlined in the testing sections earlier.
 
 ### 1. API Unit Tests Pipeline
 
@@ -458,9 +456,12 @@ This pipeline is dedicated to running the API unit tests, reinforcing the scenar
     reportgenerator -reports:${{ steps.find_coverage.outputs.coverage_file }} -targetdir:coveragereport -reporttypes:Html
 ```
 
-**Coverage Tool**: I used `reportgenerator`, a .NET global tool, to convert coverage data into an understandable report format. This tool takes raw coverage outputs and transforms them into detailed HTML reports that provide insights into which parts of the code are being tested.
+**Coverage Tool**: As mentioned earlier, I used `reportgenerator`, a .NET global tool, to convert coverage data into an understandable report format. This tool takes raw coverage outputs and transforms them into detailed HTML reports that provide insights into which parts of the code are being tested.
 
 **Artifacts**: Artifacts in GitHub Actions are files created by a job during the run, which can be downloaded once the workflow completes. In this case, coverage reports are saved as artifacts, allowing developers/testers to review them after the tests conclude. This makes it easy to keep track of test effectiveness over time, and if the coverage needs to grow or if new pieces of code haven't been covered yet.
+
+> [!NOTE]
+> It is possible to host artifacts as GitHub pages, allowing the latest coverage report to be hosted there. Due to lack of time, I decided not to implement this practice. I will consider this practice in the future. 
 
 ### 2. UI Regression Tests Pipeline
 
@@ -484,6 +485,8 @@ This pipeline focuses on the UI regression testing described in the **UI Test Sc
 
 This step was crucial as it allows the Selenium tests to interact with the frontend as if a user was navigating through a browser, ensuring the application's user interface performs well under various conditions and does not only test the logic but also the user requirements.
 
+> [!WARNING]
+> This pipeline is purely for CI purposes per the assignment expectations, traditionally, this should be done when the app is deployed somewhere, and tested locally before pushes. If you decide to run this pipeline, you might notice it take some time (due to the modules being ran "locally" on GH machine, and will take some time for them to connect to the front end) 
 
 ## Standards
 In the development of EnrollPro, several industry-recognized standards were applied to ensure quality, maintainability, and best practices in software development. The following standards were particularly relevant:
@@ -527,19 +530,20 @@ Lighthouse analyzes web apps and web pages, collecting modern performance metric
 3. Best Practices
 4. SEO
 
-Note: While SEO isn't relevant for my application (which is intended for teachers in a specific school), it's worth mentioning that a high Lighthouse SEO score could potentially improve Google search rankings and page visibility, I found this quite interesting for competitive applications.
+> [!NOTE]
+> While SEO isn't relevant for my application (the target audience is a specific school and NOT meant to compete with other providers), it's worth mentioning that a high Lighthouse SEO score could potentially improve Google search rankings and page visibility. This makes Lighthouse a first line of defence for competitive applications, which I found particularly interesting.
 
 ![score](./docs/assets/lighthouse-score.png)
 
-As shown in the score above, all scores are very high except the performance. This is likely primarily due to the local backend running .NET C#, which is typically a heavier backend used for larger applications. As the application grows, this choice will become more obvious, but at a smaller scale it can seem slower than by using other stacks. 
+As shown in the score above, all scores are very high except the performance. This is likely primarily due to the local backend running .NET C#, which is typically a heavier backend used for larger applications. As the application grows, this choice will become more obvious, but at a smaller scale it can seem slower than by using other stacks. I also chose .NET given my familiarity with it, reducing risk. 
 
 Many of Lighthouse's recommendations could only be implemented at the production level, such as:
 
 - Enabling text compression in IIS
-- Minifying JavaScript (which can be addressed using `ng build` instead of `ng serve` on the angular frontend)
-- Using a CDN (e.g. AWS cloudfront) or caching
+- Minifying JavaScript (which can be addressed using `ng build` instead of `ng serve` on the angular frontend, again, I focused on CI pipelines and not CD)
+- Using a CDN (e.g. AWS cloudfront) or cookie caching
 
-These optimizations are more suited for deployment environments rather than local development, as they involve server configurations and build processes that are typically finalized during deployment. This is why I haven't decided to address them just yet. 
+These optimizations are more suited for deployment environments rather than local development, as they involve server configurations and build processes that are typically finalized during deployment. This is why I haven't decided to address them yet. 
 
 However, Lighthouse originally identified two main accessibility issues which have now been successfully addressed:
 
@@ -576,6 +580,12 @@ I addressed this by changing the text color to white, which provides better cont
     color: #f8f9fa !important;
   }
 ```
+
+Before: 
+![old nav bar](./docs/assets/old-navbar.png)
+
+After:
+![new nav bar](./docs/assets/new-navbar.png)
 
 This error caught by Lighthouse genuinely impressed me. It's not just that the tool identified a contrast issue, but the level of specificity it provided blew me away. Lighthouse pinpointed exactly where in my application the contrast was failing - right down to the specific elements in the navigation bar.
 
