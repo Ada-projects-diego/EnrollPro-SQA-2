@@ -78,7 +78,3 @@ Thumbs.db
 
 # environment variables
 .env
-
-# Angular files
-.angular-cache
-/angular.json
